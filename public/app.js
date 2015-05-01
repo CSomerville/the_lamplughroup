@@ -59,7 +59,11 @@ function newRestaurantForm(event){
 }
 
 function editRestaurantForm(event){
-  console.log("hooked up")
+  var id = $(event.target).parent().attr("data-id");
+  $('body').append($(Mustache.render($('script[data-id="edit_restaurant_popup"]').text(), {id: id})));
+  $('form').on('click', '[data-action="save_restaurant"]', patchRestaurant);
+  $('form').on('click', '[data-action="delete_restaurant"]', deleteRestaurant);
+  $('form').on('click', '[data-action="cancel_restaurant"]', cancelRestaurant);
 }
 
 function patchRestaurant(event){
@@ -82,4 +86,8 @@ function deleteRestaurant(event){
   doADelete("restaurants", $form.attr("data-id"), function(data){
     console.log("nuh-uh");
   })
+}
+
+function cancelRestaurant(event){
+  console.log("That does nothing");
 }

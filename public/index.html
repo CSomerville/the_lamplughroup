@@ -72,6 +72,55 @@
       </div>
     </div>
   </script>
+  <script type="text/template" data-id="edit_restaurant_popup">
+    <div class="popup">
+      <div class="container form">
+        <form data-id={{id}}>
+          <div class="row">
+            <div class="two columns"></div>
+            <div class="eight columns">
+              <button data-action="delete_restaurant">Delete</button>
+            </div>
+            <div class="two columns"></div
+          </div>
+          <div class="row">
+            <div class="two columns"></div>
+            <div class="four columns">
+              <label>Name:</label>
+              <input class="u-full-width" type="text" data-attr="name">
+            </div>
+            <div class="four columns">
+              <label>Location:</label>
+              <input class="u-full-width" type="text" data-attr="location">
+            </div>
+            <div class="two columns"></div>
+          </div>
+          <div class="row">
+            <div class="two columns"></div>
+            <div class="four columns">
+              <label>Cuisine:</label>
+              <input class="u-full-width" type="text" data-attr="cuisine">
+            </div>
+            <div class="four columns">
+              <label>Image Url:</label>
+              <input class="u-full-width" type="text" data-attr="image_url">
+            </div>            
+            <div class="two columns"></div>
+          </div>
+          <div class="row">
+            <div class="two columns"></div>
+            <div class="four columns">
+              <button class="button-primary" data-action="save_restaurant">Save</button>
+            </div>
+            <div class="four columns">
+              <button data-action="cancel_restaurant">Cancel</button>
+            </div>
+            <div class="two columns"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
 
 
 
