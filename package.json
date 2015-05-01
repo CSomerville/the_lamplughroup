@@ -1,0 +1,8 @@
+{
+  "name": "the_lamlughroup",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "^0.7.2"
+  }
+}

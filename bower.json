@@ -1,0 +1,7 @@
+{
+  "name": "the_lamplughroup",
+  "version": "0.0.0",
+  "dependencies": {
+    "skeleton": "~2.0.4"
+  }
+}
