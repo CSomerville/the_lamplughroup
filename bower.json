@@ -2,6 +2,8 @@
   "name": "the_lamplughroup",
   "version": "0.0.0",
   "dependencies": {
-    "skeleton": "~2.0.4"
+    "skeleton": "~2.0.4",
+    "jquery": "~2.1.4",
+    "mustache": "~2.0.0"
   }
 }
