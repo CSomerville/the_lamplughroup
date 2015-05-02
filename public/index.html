@@ -16,24 +16,22 @@
     <button data-action="new_item">New Item</button>
   </header>
   <div class="container main">
+    <div class="four columns"></div>
+    <div class="eight columns"></div>
   
   <script type="text/template" data-id="restaurant_template">
-    <div class="four columns">
-      <div class="restaurant" data-id="{{id}}" style="background-image: url({{image_url}});background-size: cover">
-        <h1>{{name}}</h1>
-        <h3>{{location}}</h3>
-        <h3>{{cuisine}}</h3>
-        <br>
-          <button>edit</button>
-      </div>
+    <div class="restaurant" data-id="{{id}}" style="background-image: url({{image_url}});background-size: cover">
+      <h1>{{name}}</h1>
+      <h3>{{location}}</h3>
+      <h3>{{cuisine}}</h3>
+      <br>
+        <button>edit</button>
     </div>
   </script>
 
   <script type="text/template" data-id="item_template">
-    <div class="eight columns">
-      <div class="item" data-id="{{id}}">
-        <h3>{{name}} | $ {{price}} | order count: {{order_count}}</h3>
-      </div>
+    <div class="item" data-id="{{id}}">
+      <h3>{{name}} | $ {{price}} | order count: {{order_count}}</h3>
     </div>
   </script>
 

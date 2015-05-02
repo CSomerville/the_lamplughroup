@@ -36,24 +36,12 @@ function doADelete(resource, id, cb){
 }
 
 function displayRestaurants(){
-  if ($('.restaurant').length > 0) $('.restaurant').parent().remove();
+  if ($('.restaurant').length > 0) $('.restaurant').remove();
   getData("restaurants", function(restaurants){
 
     restaurants.forEach(function(restaurant){
-      var restarantAppended = false;
-      $(".container.main").find(".row").each(function(){
-        if ($(this).find(".restaurant").length === 0) {
-          var template = $('script[data-id="restaurant_template"]').text();
-          $(this).append($(Mustache.render(template, restaurant)));    
-          restarantAppended = true;
-          return false;
-        }
-      })
-      if (restarantAppended === false) {
-        var template = $('script[data-id="restaurant_template"]').text();
-        var $div = $('<div>').attr('class', 'row');
-        $(".container.main").append($div.append($(Mustache.render(template, restaurant))));        
-      }
+      var template = $('script[data-id="restaurant_template"]').text();
+      $(".four.columns").append($(Mustache.render(template, restaurant)));    
     })
     $('.restaurant').find('button').each(function(){
       $(this).on('click', editRestaurantForm)
@@ -71,23 +59,11 @@ function filterItemsByRestaurant(restaurantId, cb){
 }
 
 function displayItems(){
-  if ($(".item").length > 0) $(".item").parent().remove();
+  if ($(".item").length > 0) $(".item").remove();
   filterItemsByRestaurant(1, function(items){
     items.forEach(function(item){
-      var itemAppended = false;
-      $(".container.main").find(".row").each(function(){
-        if ($(this).find(".item").length < 2) {
-          var template = $('script[data-id="item_template"]').text();
-          $(this).append($(Mustache.render(template, item)));
-          itemAppended = true;
-          return false;
-        }
-      })
-      if (itemAppended === false) {
-        var template = $('script[data-id="item_template"]').text();
-        var $div = $('<div>').attr('class', 'row');
-        $(".container.main").append($div.append($(Mustache.render(template, item))));        
-      }
+      var template = $('script[data-id="item_template"]').text();
+      $(".eight.columns").append($(Mustache.render(template, item)));
     })
   })
 }
@@ -120,18 +96,12 @@ function removeForm(){
 
 function newItemForm(event){
   makePost("items", function(data){
-    var formAppended = false;
-    $(".container.main").find(".row").each(function(){
-      if ($(this).find(".item").length < 2) {
-        var template = $('script[data-id="new_item_template"]').text();
-        $(this).append($(Mustache.render(template, {id: data.id})));    
-        formAppended = true;
-        return false;
-      }
-    })  
+    
+    var template = $('script[data-id="new_item_template"]').text();
+    $(".eight.columns").append($(Mustache.render(template, {id: data.id})));  
+
     $(".main.container").find("form").on('click', '[data-action="save_item"]', patchItem);
     $(".main.container").find("form").on('click', '[data-action="cancel_item"]', cancelItem);
-
   })
 }
 
