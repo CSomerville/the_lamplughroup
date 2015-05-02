@@ -37,6 +37,24 @@
     </div>
   </script>
 
+  <script type="text/template" data-id="new_item_template">
+    <form data-id={{id}}>
+      <div class="two columns">
+        <input class="u-full-width" type="text" data-attr="name">
+      </div>
+      <div class="two columns">
+        <input class="u-full-width" type="text" data-attr="price">
+      </div>
+      <div class="two columns">
+        <input class="u-full-width" type="text" data-attr="order_count">
+      </div>
+      <div class="two columns">
+        <button class="button-primary" data-action="save_item">Add</button>
+        <button data-action="cancel_item">Cancel</button>
+      </div>
+    </form>
+  </script>        
+
   <script type="text/template" data-id="new_restaurant_popup">
     <div class="popup">
       <div class="container form">

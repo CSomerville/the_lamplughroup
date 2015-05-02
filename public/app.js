@@ -115,10 +115,24 @@ function editRestaurantForm(event){
 
 function removeForm(){
   $(".popup").remove();
+  $("form").remove();
 }
 
 function newItemForm(event){
-  console.log("hooked up")
+  makePost("items", function(data){
+    var formAppended = false;
+    $(".container.main").find(".row").each(function(){
+      if ($(this).find(".item").length < 2) {
+        var template = $('script[data-id="new_item_template"]').text();
+        $(this).append($(Mustache.render(template, {id: data.id})));    
+        formAppended = true;
+        return false;
+      }
+    })  
+    $(".main.container").find("form").on('click', '[data-action="save_item"]', patchItem);
+    $(".main.container").find("form").on('click', '[data-action="cancel_item"]', cancelItem);
+
+  })
 }
 
 function patchRestaurant(event){
@@ -148,5 +162,29 @@ function deleteRestaurant(event){
 }
 
 function cancelRestaurant(event){
-  console.log("That does nothing");
+  event.preventDefault();
+  console.log("That does nothing")
+}
+
+function patchItem(event){
+  event.preventDefault();
+  var $form = $(event.target).parents("form");
+  var payload = {
+    name: $form.find("[data-attr='name']").val(),
+    price: $form.find("[data-attr='price']").val(),
+    order_count: $form.find("[data-attr='order_count']").val(),
+    restaurant_id: 1
+  }
+  sendPatch("items", $form.attr("data-id"), payload, function(data){
+    removeForm();
+    displayItems();
+  })
+}
+
+function cancelItem(event){
+  event.preventDefault();
+  var $form = $(event.target).parents("form");
+  doADelete("items", $form.attr("data-id"), function(){
+    removeForm();    
+  })
 }
