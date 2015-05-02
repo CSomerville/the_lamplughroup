@@ -3,6 +3,7 @@ console.log("linked")
 $(document).ready(function(){
   headerListeners();
   displayRestaurants();
+  displayItems();
 })
 
 //generic wrapper functions for ajax calls
@@ -35,10 +36,24 @@ function doADelete(resource, id, cb){
 }
 
 function displayRestaurants(){
-  getData("restaurants", function(data){
-    data.forEach(function(restaurant){
-      var template = $('script[data-id="restaurant_template"]').text();
-      $(".container.main").append($(Mustache.render(template, restaurant)));    
+  if ($('.restaurant').length > 0) $('.restaurant').parent().remove();
+  getData("restaurants", function(restaurants){
+
+    restaurants.forEach(function(restaurant){
+      var restarantAppended = false;
+      $(".container.main").find(".row").each(function(){
+        if ($(this).find(".restaurant").length === 0) {
+          var template = $('script[data-id="restaurant_template"]').text();
+          $(this).append($(Mustache.render(template, restaurant)));    
+          restarantAppended = true;
+          return false;
+        }
+      })
+      if (restarantAppended === false) {
+        var template = $('script[data-id="restaurant_template"]').text();
+        var $div = $('<div>').attr('class', 'row');
+        $(".container.main").append($div.append($(Mustache.render(template, restaurant))));        
+      }
     })
     $('.restaurant').find('button').each(function(){
       $(this).on('click', editRestaurantForm)
@@ -46,8 +61,40 @@ function displayRestaurants(){
   })
 }
 
+function filterItemsByRestaurant(restaurantId, cb){
+  getData("items", function(items){
+    var filtered = items.filter(function(item){
+      if (item.restaurant_id === restaurantId) return item;
+    })
+    cb(filtered);
+  })
+}
+
+function displayItems(){
+  if ($(".item").length > 0) $(".item").parent().remove();
+  filterItemsByRestaurant(1, function(items){
+    items.forEach(function(item){
+      var itemAppended = false;
+      $(".container.main").find(".row").each(function(){
+        if ($(this).find(".item").length < 2) {
+          var template = $('script[data-id="item_template"]').text();
+          $(this).append($(Mustache.render(template, item)));
+          itemAppended = true;
+          return false;
+        }
+      })
+      if (itemAppended === false) {
+        var template = $('script[data-id="item_template"]').text();
+        var $div = $('<div>').attr('class', 'row');
+        $(".container.main").append($div.append($(Mustache.render(template, item))));        
+      }
+    })
+  })
+}
+
 function headerListeners(){
   $('header').on('click', '[data-action="new_restaurant"]', newRestaurantForm);
+  $('header').on('click', '[data-action="new_item"]', newItemForm);
 }
 
 function newRestaurantForm(event){
@@ -66,6 +113,14 @@ function editRestaurantForm(event){
   $('form').on('click', '[data-action="cancel_restaurant"]', cancelRestaurant);
 }
 
+function removeForm(){
+  $(".popup").remove();
+}
+
+function newItemForm(event){
+  console.log("hooked up")
+}
+
 function patchRestaurant(event){
   event.preventDefault();
   var $form = $(event.target).parents("form");
@@ -76,7 +131,9 @@ function patchRestaurant(event){
     image_url: $form.find("[data-attr='image_url']").val()
   };
   sendPatch("restaurants", $form.attr("data-id"), payload, function(data){
-    console.log("yay");
+    removeForm();
+    displayRestaurants();
+    displayItems();
   })
 }
 
@@ -84,7 +141,9 @@ function deleteRestaurant(event){
   event.preventDefault();
   var $form = $(event.target).parents("form");
   doADelete("restaurants", $form.attr("data-id"), function(data){
-    console.log("nuh-uh");
+    removeForm();
+    displayRestaurants();
+    displayItems();
   })
 }
 

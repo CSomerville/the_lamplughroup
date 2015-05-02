@@ -13,19 +13,26 @@
 <body>
   <header>
     <button data-action="new_restaurant">New Restaurant</button>
+    <button data-action="new_item">New Item</button>
   </header>
   <div class="container main">
   
   <script type="text/template" data-id="restaurant_template">
-    <div class="row">
-      <div class="four columns">
-        <div class="restaurant" data-id="{{id}}" style="background-image: url({{image_url}});background-size: cover">
-          <h1>{{name}}</h1>
-          <h3>{{location}}</h3>
-          <h3>{{cuisine}}</h3>
-          <br>
-            <button>edit</button>
-        </div>
+    <div class="four columns">
+      <div class="restaurant" data-id="{{id}}" style="background-image: url({{image_url}});background-size: cover">
+        <h1>{{name}}</h1>
+        <h3>{{location}}</h3>
+        <h3>{{cuisine}}</h3>
+        <br>
+          <button>edit</button>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" data-id="item_template">
+    <div class="eight columns">
+      <div class="item" data-id="{{id}}">
+        <h3>{{name}} | $ {{price}} | order count: {{order_count}}</h3>
       </div>
     </div>
   </script>
@@ -72,6 +79,7 @@
       </div>
     </div>
   </script>
+
   <script type="text/template" data-id="edit_restaurant_popup">
     <div class="popup">
       <div class="container form">
