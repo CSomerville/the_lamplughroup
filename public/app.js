@@ -70,6 +70,7 @@ function displayItems(restaurantId){
       var template = $('script[data-id="item_template"]').text();
       $(Mustache.render(template, item)).insertBefore($(".eight.columns").find("[data-action='new_item']"))
     })
+    $(".item .edit").on('click', editItemForm)
   })
 }
 
@@ -114,6 +115,11 @@ function removeNewItemForm(){
   $(".eight.columns").append($("<button data-action='new_item'>New Item</button>"))   
 }
 
+function editItemForm(event){
+  var $text = $(event.target).parents(".item").find(".text_to_edit")
+  $text.attr("contenteditable", "true");
+}
+
 function patchRestaurant(event){
   event.preventDefault();
   var $form = $(event.target).parents("form");
@@ -126,7 +132,6 @@ function patchRestaurant(event){
   sendPatch("restaurants", $form.attr("data-id"), payload, function(data){
     removePopUp();
     displayRestaurants();
-    displayItems();
   })
 }
 
@@ -136,13 +141,12 @@ function deleteRestaurant(event){
   doADelete("restaurants", $form.attr("data-id"), function(data){
     removePopUp();
     displayRestaurants();
-    displayItems();
   })
 }
 
 function cancelRestaurant(event){
   event.preventDefault();
-  console.log("That does nothing")
+  removePopUp();
 }
 
 function patchItem(event){

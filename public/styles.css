@@ -11,17 +11,13 @@
   border-color: gray;
   border-width: 1px;
 }
-/*
-.item .edit{
-  float: right;
-}
-.item p {
-  display: inline;
-}*/
 
 .item img {
   max-height: 75px;
+  margin-top: 10px;
 }
 
-/*.item_text{
-}*/
+.item button {
+  margin-top: 10px;
+  float: right;
+}
