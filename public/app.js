@@ -1,5 +1,7 @@
 console.log("linked")
 
+var colorsILike = ["254,179,111", "207,149,247", "255,104,214", "98,161,240", "127,251,254"];
+
 $(document).ready(function(){
   buttonListeners();
   displayRestaurants();
@@ -38,8 +40,9 @@ function displayRestaurants(){
   if ($('.restaurant').length > 0) $('.restaurant').remove();
   getData("restaurants", function(restaurants){
 
-    restaurants.forEach(function(restaurant){
+    restaurants.forEach(function(restaurant, i){
       var template = $('script[data-id="restaurant_template"]').text();
+      restaurant.color = colorsILike[i%5];
       $(Mustache.render(template, restaurant)).insertBefore($(".four.columns").find("[data-action='new_restaurant']"))   
     })
     $('.restaurant').find('button').each(function(){
@@ -61,8 +64,15 @@ function filterItemsByRestaurant(restaurantId, cb){
   })
 }
 
+function setColor(restaurantId) {
+  var restaurantColor = $(".restaurant[data-id='"+ restaurantId+ "']").css("background-color")
+  $(".container.main").css({"background-color": restaurantColor})
+}
+
 function displayItems(restaurantId){
+  
   if ($(".item").length > 0) $(".item").remove();
+  setColor(restaurantId);
   $(".eight.columns").attr("data-id", restaurantId)
   filterItemsByRestaurant(restaurantId, function(items){
     items.forEach(function(item){
@@ -199,4 +209,5 @@ function saveItemEdit(event){
 function cancelItemEdit(event){
   var $item = $(event.target).parents(".item");
   removeEditItem($item.attr("data-id"))
+
 }
