@@ -14,19 +14,20 @@
     
   <div class="container main">
     <div class="four columns">
-      <button data-action='new_restaurant'>New Restaurant</button>
+      <button data-action='new_restaurant'>Add</button>
     </div>
     <div class="eight columns">
-      <button data-action='new_item'>New Item</button>
+      <button data-action='new_item'>Add</button>
     </div>
   
   <script type="text/template" data-id="restaurant_template">
     <div class="restaurant" data-id="{{id}}" style="background-color:rgba({{color}},1);border-color:rgba({{color}},1)">
       <div class="clickable" style="background-image: url({{image_url}});background-size: cover">
-        <h1>{{name}}</h1>
-        <h3>{{location}}</h3>
-        <h3>{{cuisine}}</h3>
-        <br>
+        <div class="dirty_window">
+          <h1>{{name}}</h1>
+          <h5>{{location}} | {{cuisine}}</h5>
+          <br>
+        </div>
       </div>
       <button>edit</button>
     </div>
@@ -39,7 +40,7 @@
           <img src="{{image_url}}">
         </div>
         <div class="six columns">
-          <h3><span class="text_to_edit" data-attr="name">{{name}}</span></h3>
+          <h5><span class="text_to_edit" data-attr="name">{{name}}</span></h5>
           <p>$ <span class="text_to_edit" data-attr="price">{{price}}</span> | order count: <span class="text_to_edit" data-attr="order_count">{{order_count}}</span></p>
         </div>
         <div class="three columns">

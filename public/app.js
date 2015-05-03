@@ -70,7 +70,7 @@ function setColor(restaurantId) {
 }
 
 function displayItems(restaurantId){
-  
+
   if ($(".item").length > 0) $(".item").remove();
   setColor(restaurantId);
   $(".eight.columns").attr("data-id", restaurantId)
