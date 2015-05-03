@@ -39,8 +39,8 @@
           <img src="{{image_url}}">
         </div>
         <div class="six columns">
-          <h3><span class="text_to_edit">{{name}}</span></h3>
-          <p>$ <span class="text_to_edit">{{price}}</span> | order count: <span class="text_to_edit">{{order_count}}</span></p>
+          <h3><span class="text_to_edit" data-attr="name">{{name}}</span></h3>
+          <p>$ <span class="text_to_edit" data-attr="price">{{price}}</span> | order count: <span class="text_to_edit" data-attr="order_count">{{order_count}}</span></p>
         </div>
         <div class="three columns">
           <button class="edit">edit</button>
@@ -65,6 +65,11 @@
         <button data-action="cancel_item">Cancel</button>
       </div>
     </form>
+  </script>
+
+  <script type="text/template" data-id="edit_item_buttons">
+    <button class="button-primary" data-action="save_item">Save</button>
+    <button data-action="cancel_item">Cancel</button>
   </script>        
 
   <script type="text/template" data-id="new_restaurant_popup">

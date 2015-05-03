@@ -112,12 +112,24 @@ function newItemForm(event){
 
 function removeNewItemForm(){
   $("form").remove();
-  $(".eight.columns").append($("<button data-action='new_item'>New Item</button>"))   
+  $(".eight.columns").append($("<button data-action='new_item'>New Item</button>"));   
+}
+
+function removeEditItem(itemId){
+  var $item = $(".item[data-id='" + itemId + "']");
+  $item.find(".text_to_edit").attr("contenteditable", "false");
+  $item.find("button").remove();
+  $item.find(".three.columns").last().append("<button class='edit'>edit</button>")
+  $item.find(".edit").on('click', editItemForm)  
 }
 
 function editItemForm(event){
-  var $text = $(event.target).parents(".item").find(".text_to_edit")
-  $text.attr("contenteditable", "true");
+  var $item = $(event.target).parents(".item")
+  $item.find(".text_to_edit").attr("contenteditable", "true");
+  var $buttons = $($("script[data-id='edit_item_buttons']").text());
+  $(event.target).replaceWith($buttons);
+  $item.on('click', '[data-action="save_item"]', saveItemEdit)
+  $item.on('click', '[data-action="cancel_item"]', cancelItemEdit)
 }
 
 function patchRestaurant(event){
@@ -170,4 +182,21 @@ function cancelItem(event){
   doADelete("items", $form.attr("data-id"), function(){
     removeNewItemForm();    
   })
+}
+
+function saveItemEdit(event){
+  var $item = $(event.target).parents(".item");
+  var payload = {
+    name: $item.find("[data-attr='name']").text(),
+    price: $item.find("[data-attr='price']").text(),
+    order_count: $item.find("[data-attr='order_count']").text()
+  }
+  sendPatch("items", $item.attr("data-id"), payload, function(data){
+    removeEditItem(data.id);
+  })
+}
+
+function cancelItemEdit(event){
+  var $item = $(event.target).parents(".item");
+  removeEditItem($item.attr("data-id"))
 }
