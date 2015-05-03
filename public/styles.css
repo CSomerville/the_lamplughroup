@@ -6,6 +6,22 @@
   background-color: white;
 }
 
-.eight.columns {
-  height: 50%;
+.item {
+  border: solid;
+  border-color: gray;
+  border-width: 1px;
 }
+/*
+.item .edit{
+  float: right;
+}
+.item p {
+  display: inline;
+}*/
+
+.item img {
+  max-height: 75px;
+}
+
+/*.item_text{
+}*/

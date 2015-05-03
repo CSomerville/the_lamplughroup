@@ -34,7 +34,18 @@
 
   <script type="text/template" data-id="item_template">
     <div class="item" data-id="{{id}}">
-      <h3>{{name}} | $ {{price}} | order count: {{order_count}}</h3>
+      <div class="container">
+        <div class="three columns">
+          <img src="{{image_url}}">
+        </div>
+        <div class="six columns">
+          <h3>{{name}}</h3>
+          <p>$ {{price}} | order count: {{order_count}}</p>
+        </div>
+        <div class="three columns">
+          <button class="edit">edit</button>
+        </div>
+      </div>
     </div>
   </script>
 

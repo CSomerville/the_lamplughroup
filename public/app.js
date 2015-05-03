@@ -63,8 +63,10 @@ function filterItemsByRestaurant(restaurantId, cb){
 
 function displayItems(restaurantId){
   if ($(".item").length > 0) $(".item").remove();
+  $(".eight.columns").attr("data-id", restaurantId)
   filterItemsByRestaurant(restaurantId, function(items){
     items.forEach(function(item){
+      if (!item.image_url) item.image_url = "http://placehold.it/75x75"      
       var template = $('script[data-id="item_template"]').text();
       $(Mustache.render(template, item)).insertBefore($(".eight.columns").find("[data-action='new_item']"))
     })
@@ -150,7 +152,7 @@ function patchItem(event){
     name: $form.find("[data-attr='name']").val(),
     price: $form.find("[data-attr='price']").val(),
     order_count: $form.find("[data-attr='order_count']").val(),
-    restaurant_id: 1
+    restaurant_id: $form.parent().attr("data-id")
   }
   sendPatch("items", $form.attr("data-id"), payload, function(data){
     removeNewItemForm();
