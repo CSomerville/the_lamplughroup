@@ -22,11 +22,13 @@
   
   <script type="text/template" data-id="restaurant_template">
     <div class="restaurant" data-id="{{id}}" style="background-image: url({{image_url}});background-size: cover">
-      <h1>{{name}}</h1>
-      <h3>{{location}}</h3>
-      <h3>{{cuisine}}</h3>
-      <br>
-        <button>edit</button>
+      <div class="clickable">
+        <h1>{{name}}</h1>
+        <h3>{{location}}</h3>
+        <h3>{{cuisine}}</h3>
+        <br>
+      </div>
+      <button>edit</button>
     </div>
   </script>
 

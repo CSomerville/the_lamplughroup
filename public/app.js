@@ -3,7 +3,6 @@ console.log("linked")
 $(document).ready(function(){
   buttonListeners();
   displayRestaurants();
-  displayItems();
 })
 
 //generic wrapper functions for ajax calls
@@ -46,6 +45,10 @@ function displayRestaurants(){
     $('.restaurant').find('button').each(function(){
       $(this).on('click', editRestaurantForm)
     })
+    $('.clickable').on('click', function(event){
+       var id = $(event.target).parents(".restaurant").attr("data-id");
+      displayItems(parseInt(id));
+    })
   })
 }
 
@@ -58,9 +61,9 @@ function filterItemsByRestaurant(restaurantId, cb){
   })
 }
 
-function displayItems(){
+function displayItems(restaurantId){
   if ($(".item").length > 0) $(".item").remove();
-  filterItemsByRestaurant(1, function(items){
+  filterItemsByRestaurant(restaurantId, function(items){
     items.forEach(function(item){
       var template = $('script[data-id="item_template"]').text();
       $(Mustache.render(template, item)).insertBefore($(".eight.columns").find("[data-action='new_item']"))
