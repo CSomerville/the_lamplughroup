@@ -70,3 +70,23 @@ body {
   margin-top: 10px;
   float: right;
 }
+
+.trash {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: rgba(255,255,255,0.75);
+  background-image: url(./trash.jpg);
+  background-size: cover;
+  display: none;
+  border-style: solid;
+  border-width: 10px;
+  border-color: rgba(255,255,255,0.75);
+}
+
+.clickable.trasher{
+  padding: 50px;
+  border-style: solid;
+  border: 10px;
+  border-color: rgba(255,255,255,0.75);
+}

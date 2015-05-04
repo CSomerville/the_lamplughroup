@@ -94,6 +94,7 @@ function displayItems(restaurantId){
     $(".item img").on('click', itemImageForm);
     adjustContainingDivs();
     var $draggable = $(".draggable").draggabilly();
+    $draggable.on('dragStart', draggingStart);
     $draggable.on('dragMove', draggingMove);
     $draggable.on('dragEnd', draggingEnd);
   })
@@ -271,6 +272,11 @@ function saveItemImageUrl(event){
 function cancelItemImageUrl(event){
   event.preventDefault();
   removePopUp();
+}
+
+function draggingStart(event){
+  $("body").append($($('script[data-id="trash_template"]').text()))
+  $(".trash").fadeIn(500)
 }
 
 function draggingMove(event, pointer){
