@@ -274,19 +274,25 @@ function cancelItemImageUrl(event){
   removePopUp();
 }
 
-function draggingStart(event){
-  $("body").append($($('script[data-id="trash_template"]').text()))
-  $(".trash").fadeIn(500)
-}
-
-function draggingMove(event, pointer){
-  var $areas = $('.clickable').map(function(){
+function areasToPulse(){
+  return $('.clickable').map(function(){
     var obj = $(this).offset();
     obj.id = $(this).parents(".restaurant").attr('data-id');
     obj.bottom = obj.top + parseInt($(this).css("height"));
     obj.right = obj.left + parseInt($(this).css("width"));
     return obj
   })
+}
+
+function draggingStart(event){
+  $("body").append($($('script[data-id="trash_template"]').text()))
+  $(".trash").fadeIn(500)
+}
+
+function draggingMove(event, pointer){
+  
+  var $areas = areasToPulse();
+
   $areas.each(function(){
     if (pointer.pageY > this.top && pointer.pageY < this.bottom &&
       pointer.pageX < this.right && pointer.pageX > this.left) {
@@ -307,6 +313,40 @@ function draggingMove(event, pointer){
   
 }
 
-function draggingEnd(event){
-  console.log("not so dragging"); 
+function draggingEnd(event, pointer){
+  $(".trash").fadeOut(500);
+
+  var itemId = $(event.target).children().data().id
+  var $areas = areasToPulse();
+
+  $areas.each(function(){
+    if (pointer.pageY > this.top && pointer.pageY < this.bottom &&
+      pointer.pageX < this.right && pointer.pageX > this.left) {
+      if (this.left < 300) {
+        var payload = {
+          restaurant_id: this.id
+        }
+        sendPatch("items", itemId, payload, function(){
+          $(event.target).remove();          
+        });
+      } else {
+        doADelete("items", itemId, function(){
+          $(event.target).remove();
+        })
+      }
+    }
+  }) 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
