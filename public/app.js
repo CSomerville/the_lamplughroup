@@ -73,7 +73,10 @@ function displayItems(restaurantId){
 
   if ($(".item").length > 0) $(".item").remove();
   setColor(restaurantId);
+  var restaurantOffset = $(".restaurant[data-id='" + restaurantId + "']").offset().top;
+  $(".eight.columns").css({position: "relative", top: restaurantOffset});
   $(".eight.columns").attr("data-id", restaurantId)
+  
   filterItemsByRestaurant(restaurantId, function(items){
     items.forEach(function(item){
       if (!item.image_url) item.image_url = "http://placehold.it/75x75"      
