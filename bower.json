@@ -4,6 +4,8 @@
   "dependencies": {
     "skeleton": "~2.0.4",
     "jquery": "~2.1.4",
-    "mustache": "~2.0.0"
+    "mustache": "~2.0.0",
+    "draggabilly": "~1.2.3",
+    "animate.css": "~3.2.6"
   }
 }

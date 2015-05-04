@@ -1,5 +1,6 @@
 console.log("linked")
 
+
 var colorsILike = ["254,179,111", "207,149,247", "255,104,214", "98,161,240", "127,251,254"];
 
 $(document).ready(function(){
@@ -49,8 +50,14 @@ function displayRestaurants(){
       $(this).on('click', editRestaurantForm)
     })
     $('.clickable').on('click', function(event){
-       var id = $(event.target).parents(".restaurant").attr("data-id");
+      var id = $(event.target).parents(".restaurant").attr("data-id");
       displayItems(parseInt(id));
+    })
+    $('.clickable').on('mouseenter', function(event){
+      $(event.target).parents('.clickable').addClass('animated pulse')
+    })
+    $('.clickable').on('mouseleave', function(event){
+      $(event.target).parents('.clickable').attr("class", "clickable")
     })
   })
 }
@@ -86,6 +93,9 @@ function displayItems(restaurantId){
     $(".item .edit").on('click', editItemForm)
     $(".item img").on('click', itemImageForm);
     adjustContainingDivs();
+    var $draggable = $(".draggable").draggabilly();
+    $draggable.on('dragMove', draggingMove);
+    $draggable.on('dragEnd', draggingEnd);
   })
 }
 
@@ -261,4 +271,29 @@ function saveItemImageUrl(event){
 function cancelItemImageUrl(event){
   event.preventDefault();
   removePopUp();
+}
+
+function draggingMove(event, pointer){
+  var $areas = $('.clickable').map(function(){
+    var obj = $(this).offset();
+    obj.id = $(this).parents(".restaurant").attr('data-id');
+    obj.bottom = obj.top + parseInt($(this).css("height"));
+    obj.right = obj.left + parseInt($(this).css("width"));
+    return obj
+  })
+  $areas.each(function(){
+    if (pointer.pageY > this.top && pointer.pageY < this.bottom &&
+      pointer.pageX < this.right && pointer.pageX > this.left) {
+        $(".restaurant[data-id='" + this.id + "']").children(".clickable").addClass('animated pulse')
+        var idToPass = this.id
+        window.setTimeout(function(){
+          $(".restaurant[data-id='" + idToPass + "']").children(".clickable").attr("class", "clickable")          
+        }, 1000)
+    }
+  })
+  
+}
+
+function draggingEnd(event){
+  console.log("not so dragging"); 
 }

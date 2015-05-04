@@ -5,8 +5,10 @@
   <title>the_lamplughroup</title>
   <link rel="stylesheet" href="/bower_components/skeleton/css/normalize.css">
   <link rel="stylesheet" href="/bower_components/skeleton/css/skeleton.css">
+  <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css">
   <link rel="stylesheet" href="/styles.css">
   <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/draggabilly/1.2.3/draggabilly.pkgd.min.js"></script>
   <script type="text/javascript" src="/bower_components/mustache/mustache.js"></script>
   <script type="text/javascript" src="app.js"></script>
 </head>
@@ -35,17 +37,19 @@
     </script>
 
     <script type="text/template" data-id="item_template">
-      <div class="item" data-id="{{id}}">
-        <div class="container">
-          <div class="three columns">
-            <img src="{{image_url}}">
-          </div>
-          <div class="six columns">
-            <h5><span class="text_to_edit" data-attr="name">{{name}}</span></h5>
-            <p>$ <span class="text_to_edit" data-attr="price">{{price}}</span> | order count: <span class="text_to_edit" data-attr="order_count">{{order_count}}</span></p>
-          </div>
-          <div class="three columns">
-            <button class="edit">edit</button>
+      <div class="draggable">
+        <div class="item" data-id="{{id}}">
+          <div class="container">
+            <div class="three columns">
+              <img src="{{image_url}}">
+            </div>
+            <div class="six columns">
+              <h5><span class="text_to_edit" data-attr="name">{{name}}</span></h5>
+              <p>$ <span class="text_to_edit" data-attr="price">{{price}}</span> | order count: <span class="text_to_edit" data-attr="order_count">{{order_count}}</span></p>
+            </div>
+            <div class="three columns">
+              <button class="edit">edit</button>
+            </div>
           </div>
         </div>
       </div>
