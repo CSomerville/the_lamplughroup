@@ -76,7 +76,7 @@ function displayItems(restaurantId){
   var restaurantOffset = $(".restaurant[data-id='" + restaurantId + "']").offset().top;
   $(".eight.columns").css({position: "relative", top: restaurantOffset});
   $(".eight.columns").attr("data-id", restaurantId)
-  
+
   filterItemsByRestaurant(restaurantId, function(items){
     items.forEach(function(item){
       if (!item.image_url) item.image_url = "http://placehold.it/75x75"      
@@ -84,7 +84,18 @@ function displayItems(restaurantId){
       $(Mustache.render(template, item)).insertBefore($(".eight.columns").find("[data-action='new_item']"))
     })
     $(".item .edit").on('click', editItemForm)
+    adjustContainingDivs();
   })
+}
+
+function adjustContainingDivs(){
+  var lowestButton = $("button[data-action='new_item']");
+  var bottom = lowestButton.offset().top + parseInt(lowestButton.css("height"));
+  if (bottom > parseInt($(".main.container").css("height"))) {
+    $(".main.container").css({height: bottom + "px"})    
+  } else {
+    $(".main.container").css({height: ""})     
+  }
 }
 
 function buttonListeners(){
@@ -192,7 +203,7 @@ function patchItem(event){
   }
   sendPatch("items", $form.attr("data-id"), payload, function(data){
     removeNewItemForm();
-    displayItems();
+    displayItems(data.restaurant_id);
   })
 }
 
