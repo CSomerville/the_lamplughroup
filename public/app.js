@@ -92,8 +92,10 @@ function buttonListeners(){
 function newRestaurantForm(event){
   makePost("restaurants", function(data){
     $('body').append($(Mustache.render($('script[data-id="new_restaurant_popup"]').text(), {id: data.id})));
-    $('form').on('click', '[data-action="new_restaurant"]', patchRestaurant);
-    $('form').on('click', '[data-action="cancel_restaurant"]', deleteRestaurant);    
+    $('form').on('click', '[data-action="save_new_restaurant"]', patchRestaurant);
+    $('form').on('click', '[data-action="cancel_restaurant"]', deleteRestaurant);
+    $('.popup').fadeIn(300);
+    $('.big_dirty_window').animate({opacity:0.4}, {queue:false}, 300);
   })
 }
 
@@ -103,10 +105,15 @@ function editRestaurantForm(event){
   $('form').on('click', '[data-action="save_restaurant"]', patchRestaurant);
   $('form').on('click', '[data-action="delete_restaurant"]', deleteRestaurant);
   $('form').on('click', '[data-action="cancel_restaurant"]', cancelRestaurant);
+  $('.popup').fadeIn(300);
+  $('.big_dirty_window').animate({opacity:0.4}, {queue:false}, 300);
 }
 
 function removePopUp(){
-  $(".popup").remove();
+  $(".popup").fadeOut(300, function(){
+    $(".popup").remove();
+  });
+  $('.big_dirty_window').animate({opacity:1}, {queue:false}, 300);
 }
 
 function newItemForm(event){
