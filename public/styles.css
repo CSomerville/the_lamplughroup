@@ -51,6 +51,10 @@ body {
   display: none;
 }
 
+.popup input{
+  color: black;
+}
+
 .item {
   background-color: rgba(255,255,255,0.25);
   margin-top: 10px;

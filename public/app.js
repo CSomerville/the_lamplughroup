@@ -84,6 +84,7 @@ function displayItems(restaurantId){
       $(Mustache.render(template, item)).insertBefore($(".eight.columns").find("[data-action='new_item']"))
     })
     $(".item .edit").on('click', editItemForm)
+    $(".item img").on('click', itemImageForm);
     adjustContainingDivs();
   })
 }
@@ -139,6 +140,16 @@ function newItemForm(event){
     $(".main.container").find("form").on('click', '[data-action="save_item"]', patchItem);
     $(".main.container").find("form").on('click', '[data-action="cancel_item"]', cancelItem);
   })
+}
+
+function itemImageForm(event) {
+  var id = $(event.target).parents(".item").attr("data-id");
+  var template = $('script[data-id="imgurl_popup"]').text();
+  $("body").append($(Mustache.render(template, {id:id})));
+  $('.popup').fadeIn(300);
+  $('.big_dirty_window').animate({opacity:0.4}, {queue:false}, 300);
+  $("[data-action='save_item_image_url']").on('click', saveItemImageUrl);
+  $("[data-action='cancel_item_image_url']").on('click', cancelItemImageUrl);
 }
 
 function removeNewItemForm(){
@@ -230,5 +241,24 @@ function saveItemEdit(event){
 function cancelItemEdit(event){
   var $item = $(event.target).parents(".item");
   removeEditItem($item.attr("data-id"))
+}
 
+function saveItemImageUrl(event){
+  event.preventDefault();
+  var $form = $(event.target).parents("form");
+  console.log($form.find("[data-attr='image_url']").val())
+  var payload = {
+    image_url: $form.find("[data-attr='image_url']").val()
+  };
+  sendPatch("items", $form.attr("data-id"), payload, function(data){
+    removePopUp();
+    var $item = $(".eight.columns").find("[data-id='" + data.id + "']")
+    var template = $('script[data-id="item_template"]').text();
+    $item.replaceWith($(Mustache.render(template, data)));
+  })
+}
+
+function cancelItemImageUrl(event){
+  event.preventDefault();
+  removePopUp();
 }
