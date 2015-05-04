@@ -86,7 +86,4 @@ body {
 
 .clickable.trasher{
   padding: 50px;
-  border-style: solid;
-  border: 10px;
-  border-color: rgba(255,255,255,0.75);
 }

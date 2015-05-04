@@ -290,11 +290,18 @@ function draggingMove(event, pointer){
   $areas.each(function(){
     if (pointer.pageY > this.top && pointer.pageY < this.bottom &&
       pointer.pageX < this.right && pointer.pageX > this.left) {
+      if (this.left < 300){
         $(".restaurant[data-id='" + this.id + "']").children(".clickable").addClass('animated pulse')
         var idToPass = this.id
         window.setTimeout(function(){
           $(".restaurant[data-id='" + idToPass + "']").children(".clickable").attr("class", "clickable")          
         }, 1000)
+      } else {
+        $(".trash").addClass('animated pulse');
+        window.setTimeout(function(){
+          $(".trash").attr("class", "clickable trash")          
+        }, 1000)
+      }
     }
   })
   
