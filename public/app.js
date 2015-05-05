@@ -173,12 +173,19 @@ function removeEditItem(itemId){
   $item.find(".text_to_edit").attr("contenteditable", "false");
   $item.find("button").remove();
   $item.find(".three.columns").last().append("<button class='edit'>edit</button>")
-  $item.find(".edit").on('click', editItemForm)  
+  $item.find(".edit").on('click', editItemForm)
+
+  var $div = $("<div>").attr("class", "draggable").draggabilly();
+  $div.insertBefore($item);
+  $div.append($item);
+  $div.on('dragStart', draggingStart);
+  $div.on('dragMove', draggingMove);
+  $div.on('dragEnd', draggingEnd);
 }
 
 function editItemForm(event){
   var $item = $(event.target).parents(".item")
-  $item.parents(".draggable").attr("class", "blah");
+  $item.parents(".draggable").replaceWith($item);
   $item.find(".text_to_edit").attr("contenteditable", "true");
   var $buttons = $($("script[data-id='edit_item_buttons']").text());
   $(event.target).replaceWith($buttons);
