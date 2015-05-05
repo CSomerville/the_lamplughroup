@@ -11,20 +11,20 @@ $(document).ready(function(){
 //generic wrapper functions for ajax calls
 function getData(resource, cb){
   $.ajax({
-    url: "http://127.0.0.1:3000/" + resource,
+    url: "/" + resource,
     type: "GET"
   }).done(cb)
 }
 function makePost(resource, cb){
   $.ajax({
-    url: "http://127.0.0.1:3000/" + resource,
+    url: "/" + resource,
     type: "POST"
   }).done(cb)
 }
 
 function sendPatch(resource, id, payload, cb){
   $.ajax({
-    url: "http://127.0.0.1:3000/" + resource + "/" + id,
+    url: "/" + resource + "/" + id,
     type: "PATCH",
     data: payload
   }).done(cb)
@@ -32,7 +32,7 @@ function sendPatch(resource, id, payload, cb){
 
 function doADelete(resource, id, cb){
   $.ajax({
-    url: "http://127.0.0.1:3000/" + resource + "/" + id,
+    url: "/" + resource + "/" + id,
     type: "DELETE"
   }).done(cb)
 }
