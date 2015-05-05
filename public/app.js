@@ -178,6 +178,7 @@ function removeEditItem(itemId){
 
 function editItemForm(event){
   var $item = $(event.target).parents(".item")
+  $item.parents(".draggable").attr("class", "blah");
   $item.find(".text_to_edit").attr("contenteditable", "true");
   var $buttons = $($("script[data-id='edit_item_buttons']").text());
   $(event.target).replaceWith($buttons);
@@ -309,12 +310,15 @@ function draggingMove(event, pointer){
         }, 1000)
       }
     }
-  })
-  
+  })  
 }
 
 function draggingEnd(event, pointer){
-  $(".trash").fadeOut(500);
+  var $trash = $(".trash")
+  $trash.fadeOut(500);
+  window.setTimeout(function(){
+    $trash.remove();
+  }, 500)
 
   var itemId = $(event.target).children().data().id
   var $areas = areasToPulse();
